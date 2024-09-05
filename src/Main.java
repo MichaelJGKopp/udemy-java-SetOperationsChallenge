@@ -17,9 +17,13 @@ public class Main {
     }
 
     public static void printTasks(Collection<Task> collection) {
+        printTasks(collection, Comparator.comparing(Task::getPriority).thenComparing(Task::getStatus));
+    }
+
+    public static void printTasks(Collection<Task> collection, Comparator<Task> comparator) {
         printList("%-20s %-25s %-10s %-20s %-10s"
                 .formatted("ProjectName", "Description", "Priority", "Assignee", "Status"),
-                collection, Comparator.comparing(Task::getPriority).thenComparing(Task::getStatus));
+                collection, comparator);
     }
 
     public static <T> void printList(String header, Collection<T> collection, Comparator<T> comparator) {
