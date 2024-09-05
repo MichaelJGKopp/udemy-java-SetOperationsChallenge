@@ -14,9 +14,17 @@ public class Main {
         printTasks(bobsTasks);
         printTasks(carolsTasks);
 
+        // full task list
+        printTasks(getUnion(List.of(
+                allTasks,
+                annsTasks,
+                bobsTasks,
+                carolsTasks
+        )));
+
     }
 
-    public final <T> Set<T> getUnion(List<Set<T>> sets) {
+    public static <T> Set<T> getUnion(List<Set<T>> sets) {
         Set<T> resultSet = new HashSet<>();
         for ( var c : sets) {
             resultSet.addAll(c);
@@ -24,13 +32,13 @@ public class Main {
         return resultSet;
     }
 
-    public final <T> Set<T> getIntersect(Set<T> setA, Set<T> setB) {
+    public static <T> Set<T> getIntersect(Set<T> setA, Set<T> setB) {
         Set<T> resultSet = new HashSet<>(setA);
         resultSet.retainAll(setB);
         return resultSet;
     }
 
-    public final <T> Set<T> getDifference(Set<T> setA, Set<T> setB) {
+    public static <T> Set<T> getDifference(Set<T> setA, Set<T> setB) {
         Set<T> resultSet = new HashSet<>(setA);
         resultSet.removeAll(setB);
         return resultSet;
