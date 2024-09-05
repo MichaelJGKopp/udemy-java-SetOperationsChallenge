@@ -14,15 +14,31 @@ public class Main {
         printTasks(bobsTasks);
         printTasks(carolsTasks);
 
-        // full task list
-        printTasks(getUnion(List.of(
-                allTasks,
-                annsTasks,
-                bobsTasks,
-                carolsTasks
-        )));
+        System.out.println("All Tasks");
+        Set<Task> all = getUnion(List.of(annsTasks, bobsTasks, carolsTasks, allTasks));
+        printTasks(all);
+        System.out.println();
+
+        System.out.println("Assigned Tasks");
+        Set<Task> assigned = getUnion(List.of(annsTasks, bobsTasks, carolsTasks));
+        printTasks(assigned);
+        System.out.println();
+
+        System.out.println("Unassigned Tasks");
+        Set<Task> unassigned = getDifference(all, assigned);
+        printTasks(unassigned);
+        System.out.println();
+
+        System.out.println("Tasks assigned to multiple");
+        Set<Task> intersect1 = getIntersect(bobsTasks, carolsTasks);
+        Set<Task> intersect2 = getIntersect(carolsTasks, annsTasks);
+        Set<Task> intersect3 = getIntersect(annsTasks, bobsTasks);
+        Set<Task> assignedMultiple = getUnion(List.of(intersect1, intersect2, intersect3));
+        printTasks(assignedMultiple);
 
     }
+
+
 
     public static <T> Set<T> getUnion(List<Set<T>> sets) {
         Set<T> resultSet = new HashSet<>();
