@@ -36,6 +36,10 @@ public class Main {
         Set<Task> assignedMultiple = getUnion(List.of(intersect1, intersect2, intersect3));
         printTasks(assignedMultiple);
 
+        System.out.println("Overlooked Tasks");
+        Set<Task> overlooked = getDifference(assigned, allTasks);
+        printTasks(overlooked);
+        System.out.println();
     }
 
 
