@@ -16,8 +16,28 @@ public class Main {
 
     }
 
+    public final <T> Set<T> getUnion(List<Set<T>> sets) {
+        Set<T> resultSet = new HashSet<>();
+        for ( var c : sets) {
+            resultSet.addAll(c);
+        }
+        return resultSet;
+    }
+
+    public final <T> Set<T> getIntersect(Set<T> setA, Set<T> setB) {
+        Set<T> resultSet = new HashSet<>(setA);
+        resultSet.retainAll(setB);
+        return resultSet;
+    }
+
+    public final <T> Set<T> getDifference(Set<T> setA, Set<T> setB) {
+        Set<T> resultSet = new HashSet<>(setA);
+        resultSet.removeAll(setB);
+        return resultSet;
+    }
+
     public static void printTasks(Collection<Task> collection) {
-        printTasks(collection, Comparator.comparing(Task::getPriority).thenComparing(Task::getStatus));
+        printTasks(collection, null);
     }
 
     public static void printTasks(Collection<Task> collection, Comparator<Task> comparator) {
