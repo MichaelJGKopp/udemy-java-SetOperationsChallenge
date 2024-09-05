@@ -40,6 +40,14 @@ public class Main {
         Set<Task> overlooked = getDifference(assigned, allTasks);
         printTasks(overlooked);
         System.out.println();
+
+        System.out.println("Overlapping Tasks likely to be reassigned");
+        List<Task> overlap = new ArrayList<>();
+        for (var set : List.of(annsTasks, bobsTasks, carolsTasks)) {
+            overlap.addAll(getIntersect(set, assignedMultiple));
+        }
+        printTasks(overlap, Comparator.comparing(Task::getPriority).thenComparing(Comparator.naturalOrder()));
+        System.out.println();
     }
 
 
