@@ -26,7 +26,7 @@ public class Main {
 
         System.out.println("Unassigned Tasks");
         Set<Task> unassigned = getDifference(all, assigned);
-        printTasks(unassigned);
+        printTasks(unassigned,Comparator.comparing(Task::getPriority));
         System.out.println();
 
         System.out.println("Tasks assigned to multiple");
