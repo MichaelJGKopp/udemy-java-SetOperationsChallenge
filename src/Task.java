@@ -3,11 +3,20 @@ public class Task implements Comparable<Task> {
     private String assignee;
     private String projectName;
     private String description;
-    private Enum status = Status.NONE;
-    private Enum priority = Priority.MEDIUM;
+    private Status status;
+    private Priority priority;
 
 
-    public Task(String assignee, String projectName, String description, Enum priority, Enum status) {
+    public Task(String projectName, String description, Priority priority) {
+        this(projectName, description, priority, null);
+    }
+
+    public Task(String projectName, String description, Priority priority, String assignee) {
+        this(projectName, description, priority, assignee,
+                assignee == null ? Status.IN_QUEUE : Status.ASSIGNED);
+    }
+
+    public Task(String projectName, String description, Priority priority, String assignee, Status status) {
         this.assignee = assignee;
         this.projectName = projectName;
         this.description = description;
@@ -17,7 +26,7 @@ public class Task implements Comparable<Task> {
 
     @Override
     public String toString() {
-        return "%-12s %-20s %-20s %-20s %-10s".formatted(assignee, projectName, description, status, priority);
+        return "%-20s %-25s %-10s %-20s %-10s".formatted(projectName, description, priority, assignee, status);
     }
 
     @Override
@@ -26,6 +35,22 @@ public class Task implements Comparable<Task> {
         if (result == 0) {
             result = description.compareTo(o.description);
         }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Task task = (Task) o;
+        return getProjectName().equals(task.getProjectName()) && getDescription().equals(task.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getProjectName().hashCode();
+        result = 31 * result + getDescription().hashCode();
         return result;
     }
 
@@ -53,19 +78,19 @@ public class Task implements Comparable<Task> {
         this.description = description;
     }
 
-    public Enum getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Enum status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public Enum getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(Enum priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 }

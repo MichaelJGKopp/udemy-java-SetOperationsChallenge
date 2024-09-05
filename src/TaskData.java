@@ -55,26 +55,32 @@ public class TaskData {
                     return tasks;
                 }
                 String[] fields = input[i].split(",");
-//                List<String> fieldsList = Arrays.asList(fields);//.replaceAll(String::trim);
-//                for (int i1 = 0; i1 < fieldsList.size(); i1++) {
-//                    fieldsList.set(i1, fieldsList.get(i1).trim());
-//                }
+
                 switch(fields.length) {
                     case 4 -> {
-                        tasks.add(new Task(nameOrAll.equalsIgnoreCase("ALL") ? "" : nameOrAll,
+                        tasks.add(new Task(
                                 fields[0].trim(),
                                 fields[1].trim(),
                                 Priority.valueOf(fields[2].trim().toUpperCase().replace(' ', '_')),
+                                nameOrAll.equalsIgnoreCase("ALL") ? null : nameOrAll,
                                 Status.valueOf(fields[3].trim().toUpperCase().replace(' ', '_'))));
                     }
                     case 3 -> {
-                        tasks.add(new Task(nameOrAll.equalsIgnoreCase("ALL") ? "" : nameOrAll,
+                        tasks.add(new Task(
                                 fields[0].trim(),
                                 fields[1].trim(),
                                 Priority.valueOf(fields[2].trim().toUpperCase()),
-                                Status.NONE
+                                nameOrAll.equalsIgnoreCase("ALL") ? null : nameOrAll
                         ));
                     }
+                    case 2 -> {
+                        tasks.add(new Task(
+                                fields[0].trim(),
+                                fields[1].trim(),
+                                Priority.valueOf(fields[2].trim().toUpperCase())
+                        ));
+                    }
+
                     default -> System.out.println("Invalid contact format: " + input[i]);
                 }
             }
